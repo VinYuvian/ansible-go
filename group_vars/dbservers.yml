@@ -5,4 +5,4 @@ packages :
     - python3-mysqldb
     - mysql-server
 db_user : root
-db_password : "passwd"
+db_password : "passwd_here"
