@@ -1,3 +1,15 @@
 [client]
 user={{ db_user }}
 password={{ db_password }}
+datadir={{ mysql_data_dir }} 
+socket={{ mysql_data_dir }}/mysql.sock
+port={{ mysql_port }}
+
+symbolic-links=0
+innodb=OFF 
+default-storage-engine=myisam 
+default-tmp-storage-engine=myisam
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+#pid-file={{ mysql_data_dir }}/mysqld.pid
