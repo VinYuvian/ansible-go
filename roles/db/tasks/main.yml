@@ -11,11 +11,11 @@
   
 
 - name: Update mysql root password for all root accounts
-  mysql_user: name=root password="passwd" priv="*.*:ALL,GRANT"
+  mysql_user: name=root password={{ db_password }}  priv="*.*:ALL,GRANT"
 
 - name : Copy config file
-  copy :
-     src : .my.cnf
+  template :
+     src : .my.cnf.j2
      dest : /root/.my.cnf
      owner : root
      group : root
