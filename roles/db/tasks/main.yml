@@ -2,22 +2,25 @@
 # tasks file for db
 - name : Update Repository
   apt :
-    update : yes
-    
-    
+    update-cache: yes
+ 
 - name : Install packages required
   apt : 
-    name : {{ item }}
+    name : "{{ packages }}"
     state : present
-    with-items :
-      - PyMySQL
-      - mysql-server
-    update-cache : yes
+  
 
-- name : Configure database user 
-  mysql_user : 
-    name : db_user
-    password : passwd
-    priv : '*.*:ALL'
-    state : present
+- name: Update mysql root password for all root accounts
+  mysql_user: name=root password="passwd" priv="*.*:ALL,GRANT"
+
+- name : Copy config file
+  copy :
+     src : .my.cnf
+     dest : /root/.my.cnf
+     owner : root
+     group : root
+     mode : 0600
+  notify :
+        - restart mysql
+
     
