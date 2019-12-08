@@ -12,6 +12,7 @@ http{
     tcp_nopush on;
     root /usr/local/go-web;
     
+    #up-stream for reverse-proxy and load-balancing
     upstream go-web{
           server ;
           server ;
@@ -21,7 +22,16 @@ http{
            listen 80;
            server_name ;
            location /{
+                  #
                   proxy_pass http://go-web;
+           }
+           
+           location /{
+                  #response headers communicating how long the response data can be cached
+                  add_header Cache-Control public;
+                  add_header Pragma public;
+                  add_header Vary Accept-Encoding;
+                  expires 1M;
            }
     
     
