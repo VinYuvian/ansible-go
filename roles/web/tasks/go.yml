@@ -7,7 +7,7 @@
     sha256sum : "{{ golang_package_checksum }}"
 
 - name : Extract go binary
-  command : tar -xvf /usr/local/{{ golang_pack_dest }}
+  command : tar -xvf /usr/local/{{ golang_pack_dest }} -C /usr/local
 
 - name : Edit .bashrc file
   blockinfile :
