@@ -1,28 +1,6 @@
 ---
-# tasks file for web
-- name : Download go binary
-  get_url :
-    url : "{{ golang_url }}"
-    dest : /usr/local/{{ golang_dest }}
-    sha256sum : "{{ golang_package_checksum }}"
-
-- name : Extract go binary
-  command : tar -C /usr/local -xvzf /usr/local/{{ golang_dest }}
-
-- name : change permissions on /usr/local
-  file :
-    dest : /usr/local/go
-    owner : root
-    group : root
-    mode : 0755
-    recurse : yes
-
-- name : Copy profile file
-  copy :
-    src : .profile
-    dest : ~/.profile
-
-- name : Source .profile
-  command : echo "source ~/.profile" >> ~/.bashrc
-
-
+- name : backend set up
+  include_tasks : "{{ item }}"
+  with_items :
+          - go.yml
+          - grpc.yml

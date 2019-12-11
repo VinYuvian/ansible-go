@@ -1,8 +1,5 @@
 [webservers]
-34.203.202.157
-
 
 
 [dbservers]
-
 

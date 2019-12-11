@@ -2,7 +2,14 @@
 - name : Set up webservers
   hosts : webservers
   become : yes
+  become_user : root
+  roles :
+   - web
+  tags : web
+
+- name : set up db servers
+  hosts : dbservers
+  become : yes
   roles :
    - db
-   - web
-
+  tags : db

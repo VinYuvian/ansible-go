@@ -1,0 +1,23 @@
+---
+# tasks file for web
+- name : Download go binary
+  get_url :
+    url : "{{ golang_url }}"
+    dest : /usr/local/{{ golang_pack_dest }}
+    sha256sum : "{{ golang_package_checksum }}"
+
+- name : Extract go binary
+  command : tar -xvf /usr/local/{{ golang_pack_dest }}
+
+- name : Edit .bashrc file
+  blockinfile :
+    path : ~/.bashrc
+    block : |
+      export GOPATH=$HOME/go
+      export GOBIN=$GOPATH/bin
+      export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+    insertafter : EOF
+
+- name : Source .profile
+  command : echo source ~/.bashrc
+
